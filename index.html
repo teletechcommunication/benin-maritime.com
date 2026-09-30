@@ -7,37 +7,14 @@
 <style>
   html, body { margin: 0; background: #525659; }
   #pages { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 8px 0; }
-  canvas { display: block; max-width: 100%; height: auto; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
-  #dl { position: fixed; top: 12px; right: 12px; z-index: 10; padding: 10px 16px; border-radius: 6px;
-        background: #0b3d6b; color: #fff; font: 600 14px/1 system-ui, sans-serif; text-decoration: none;
-        box-shadow: 0 2px 6px rgba(0,0,0,.4); }
-  #dl:hover { background: #0e4f8b; }
+  img { display: block; width: 100%; max-width: 1000px; height: auto; background: #fff;
+        box-shadow: 0 1px 4px rgba(0,0,0,.4); -webkit-user-drag: none; user-select: none; }
 </style>
 <script>if (location.pathname !== "/") history.replaceState(null, "", "/");</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
-<body>
-<a id="dl" href="/document.pdf" download="Benin-Maritime.pdf">&#8681; Download PDF</a>
-<div id="pages"></div>
-<script>
-pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-const container = document.getElementById("pages");
-pdfjsLib.getDocument("/document.pdf").promise.then(async pdf => {
-  const dpr = Math.max(window.devicePixelRatio || 1, 1);
-  for (let n = 1; n <= pdf.numPages; n++) {
-    const page = await pdf.getPage(n);
-    const base = page.getViewport({ scale: 1 });
-    const cssWidth = Math.min(window.innerWidth, 1000);
-    const scale = (cssWidth / base.width) * dpr;
-    const vp = page.getViewport({ scale });
-    const canvas = document.createElement("canvas");
-    canvas.width = vp.width;
-    canvas.height = vp.height;
-    canvas.style.width = cssWidth + "px";
-    container.appendChild(canvas);
-    await page.render({ canvasContext: canvas.getContext("2d"), viewport: vp }).promise;
-  }
-});
-</script>
+<body oncontextmenu="return false">
+<div id="pages">
+  <img src="/page-1.png" alt="Benin Maritime" draggable="false">
+</div>
 </body>
 </html>
