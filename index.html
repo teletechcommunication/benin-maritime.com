@@ -79,7 +79,9 @@
     document.title = "Benin Maritime — Vessel Documentation";
     var vessels = {};
     DOCS.forEach(function (d) { (vessels[d.vessel] = vessels[d.vessel] || []).push(d); });
-    var html = "";
+    var html = '<section class="vessel"><h2>Featured Document</h2>'
+      + '<img src="/page-1.jpg" alt="Benin Maritime" style="width:100%;max-width:1000px;height:auto;background:#fff;border-radius:10px;">'
+      + '</section>';
     Object.keys(vessels).sort().forEach(function (v) {
       html += '<section class="vessel"><h2>' + esc(v) + '</h2><div class="grid">';
       vessels[v].forEach(function (d) {
